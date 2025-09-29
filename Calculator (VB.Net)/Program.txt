@@ -1,0 +1,83 @@
+Public Class Form1
+Dim assign_input As Double = 0 Dim operation As String
+Dim found_expression As Boolean = False Dim firstnum, secondnum, q As String
+Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click txtDisplay.Text = "0"
+lblEquation.Text = "" End Sub
+Private Sub operation_Click(sender As Object, e As EventArgs) Handles Button9.Click, Button5.Click, Button17.Click, Button13.Click
+Dim b As Button = sender
+If (assign_input <> 0) Then Button21.PerformClick() found_expression = True operation = b.Text
+lblEquation.Text = assign_input & " " & operation 
+Else
+operation = b.Text
+assign_input = Double.Parse(txtDisplay.Text) found_expression = True
+lblEquation.Text = assign_input & " " & operation
+End If
+q = lblEquation.Text End Sub
+
+Private Sub Button21_Click(sender As Object, e As EventArgs) Handles Button21.Click secondnum = txtDisplay.Text
+lblEquation.Text = "" Select Case operation
+Case "+"
+txtDisplay.Text = (assign_input + Double.Parse(txtDisplay.Text)).ToString()
+Case "-"
+txtDisplay.Text = (assign_input - Double.Parse(txtDisplay.Text)).ToString()
+Case "*"
+txtDisplay.Text = (assign_input * Double.Parse(txtDisplay.Text)).ToString()
+Case "/"
+txtDisplay.Text = (assign_input / Double.Parse(txtDisplay.Text)).ToString()
+End Select
+assign_input = Double.Parse(txtDisplay.Text) operation = ""
+'============================================================================
+btnClearHistory.Visible = True
+
+rtbDisplayHistory.AppendText(q & "	" & secondnum & " = " & vbNewLine) rtbDisplayHistory.AppendText(vbNewLine & vbTab & txtDisplay.Text & vbNewLine &
+vbNewLine)
+lblHistoryDisplay.Text = "" End Sub
+ 
+Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click Dim a As Double
+a = Convert.ToDouble(txtDisplay.Text) / Convert.ToDouble(100) txtDisplay.Text = System.Convert.ToString(a)
+End Sub
+
+Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click Dim a As Double
+lblEquation.Text = "Sqrt(" & (txtDisplay.Text) & ")" a = Math.Sqrt(txtDisplay.Text)
+txtDisplay.Text = System.Convert.ToString(a) End Sub
+
+Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click Dim a As Double
+a = Convert.ToDouble(txtDisplay.Text) / Convert.ToDouble(100) txtDisplay.Text = System.Convert.ToString(a)
+End Sub
+
+Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click Dim a As Double
+a = Convert.ToDouble(txtDisplay.Text) / Convert.ToDouble(100) txtDisplay.Text = System.Convert.ToString(a)
+End Sub
+Private Sub btnBackspace_Click(sender As Object, e As EventArgs) Handles btnBackspace.Click
+'Backspace
+If txtDisplay.Text.Length > 0 Then
+txtDisplay.Text = txtDisplay.Text.Remove(txtDisplay.Text.Length - 1, 1) End If
+If (txtDisplay.Text = "") Then txtDisplay.Text = "0"
+End If End Sub
+Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load btnClearHistory.Visible = False
+End Sub
+Private Sub btnClearHistory_Click(sender As Object, e As EventArgs) Handles btnClearHistory.Click
+rtbDisplayHistory.Clear()
+If (lblHistoryDisplay.Text = "") Then lblHistoryDisplay.Text = "No History Yet"
+End If
+btnClearHistory.Visible = False rtbDisplayHistory.ScrollBars = 0
+End Sub
+Private Sub Button24_Click(sender As Object, e As EventArgs) Handles Button24.Click If (txtDisplay.Text.Contains("-")) Then
+txtDisplay.Text = txtDisplay.Text.Remove(0, 1)
+Else
+txtDisplay.Text = "-" + txtDisplay.Text
+End If End Sub
+Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click txtDisplay.Text = "0"
+lblEquation.Text = "" End Sub
+Private Sub Numbers_Click(sender As Object, e As EventArgs) Handles Button23.Click, Button22.Click, Button20.Click, Button19.Click, Button18.Click, Button16.Click, Button15.Click, Button14.Click, Button12.Click, Button11.Click, Button10.Click
+Dim b As Button = sender
+If ((txtDisplay.Text = "0") Or (found_expression)) Then txtDisplay.Clear()
+txtDisplay.Text = b.Text found_expression = False
+ElseIf (b.Text = ".") Then
+If (Not txtDisplay.Text.Contains(".")) Then txtDisplay.Text = txtDisplay.Text + b.Text
+End If
+Else
+txtDisplay.Text = txtDisplay.Text + b.Text
+End If
+End Sub 
+End Class
